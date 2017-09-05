@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20170905074542) do
     t.float "balance"
     t.string "currency"
     t.string "name"
-    t.string "string"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

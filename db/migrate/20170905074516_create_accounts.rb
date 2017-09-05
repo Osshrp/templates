@@ -4,7 +4,6 @@ class CreateAccounts < ActiveRecord::Migration[5.1]
       t.float :balance
       t.string :currency
       t.string :name
-      t.string :string
 
       t.timestamps
     end

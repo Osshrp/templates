@@ -7,3 +7,5 @@ p
   = @message.text
 
 = link_to 'Edit message', edit_message_path(@message)
+'
+= link_to 'Delete message', message_path(@message), method: :delete

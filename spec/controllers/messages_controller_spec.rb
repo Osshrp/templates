@@ -100,4 +100,20 @@ RSpec.describe MessagesController, type: :controller do
     end
   end
 
+  describe 'DELETE #destroy' do
+    before { message }
+
+    context 'user deletes message' do
+      it 'deletes message' do
+        expect { delete :destroy, params: { id: message } }
+          .to change(Message, :count).by(-1)
+      end
+
+      it 'redirects to index view' do
+        delete :destroy, params: { id: message }
+        expect(response).to redirect_to messages_path
+      end
+    end
+  end
+
 end

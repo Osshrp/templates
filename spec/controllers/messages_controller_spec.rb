@@ -63,4 +63,41 @@ RSpec.describe MessagesController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'assigns the requested message to @message' do
+        patch :update, params: { id: message,
+          message: attributes_for(:message) }
+        expect(assigns(:message)).to eq message
+      end
+
+      it 'change message attributes' do
+        patch :update, params: { id: message,
+          message: { title: 'new_title', text: 'new_text' } }
+        message.reload
+        expect(message.title).to eq 'new_title'
+        expect(message.text).to eq 'new_text'
+      end
+    end
+
+    context 'with invalid attributes' do
+      let(:title) { message.title }
+      let(:text) { message.text }
+      before do
+        patch :update, params: { id: message,
+          message: { title: 'new_title', text: nil } }
+      end
+      it 'does not change @message attributes' do
+        message.reload
+        expect(message.title).to eq title
+        expect(message.text).to eq text
+      end
+
+      it 're-renders edit view' do
+        expect(response).to render_template :edit
+      end
+    end
+  end
+
 end

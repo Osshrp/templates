@@ -7,7 +7,7 @@ feature 'Create message' do
 
     fill_in 'Title', with: 'Message title'
     fill_in 'Text', with: 'text text'
-    click_on 'Create'
+    click_on 'Save message'
 
     expect(page).to have_content 'Message was successfully created'
     expect(page).to have_content 'Message title'

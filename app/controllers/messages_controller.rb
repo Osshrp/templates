@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: :show
+  before_action :set_message, only: [:show, :update, :edit]
   def index
     @messages = Message.all
   end
@@ -14,6 +14,15 @@ class MessagesController < ApplicationController
 
   def create
     respond_with(@message = Message.create(message_params))
+  end
+
+  def edit
+    respond_with(@message)
+  end
+
+  def update
+    @message.update(message_params)
+    respond_with(@message)
   end
 
   private

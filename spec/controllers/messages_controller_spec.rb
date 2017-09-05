@@ -25,4 +25,42 @@ RSpec.describe MessagesController, type: :controller do
       expect(response).to render_template :show
     end
   end
+
+  describe 'GET #new' do
+    before { get :new }
+    it 'assigns a new Message to @message' do
+      expect(assigns(:message)).to be_a_new(Message)
+    end
+
+    it 'renders new view' do
+      expect(response).to render_template :new
+    end
+  end
+
+  describe 'POST #create' do
+    context 'with valid attributes' do
+
+      it 'creates message' do
+        expect { post :create, params: { message: attributes_for(:message) } }
+          .to change(Message, :count).by(1)
+      end
+
+      it 'redirects to show view' do
+        post :create, params: { message: attributes_for(:message) }
+        expect(response).to redirect_to message_path(assigns(:message))
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'does not save the message' do
+        expect { post :create, params: { message: attributes_for(:invalid_message) } }
+          .to_not change(Message, :count)
+      end
+
+      it 're-renders new view' do
+        post :create, params: { message: attributes_for(:invalid_message) }
+        expect(response).to render_template :new
+      end
+    end
+  end
 end
